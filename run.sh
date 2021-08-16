@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if (($# < 1))
+then
+	echo "error: must provide a duration in seconds" >&2
+	exit 1
+fi
+
 cssIds=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ_"
 i=0
 
@@ -20,14 +26,18 @@ do
 	((i++))
 done
 
-echo '<style>@keyframes scroll {0 {transform: translateX(0)} to {transform: translateX(850px)}}image {position: absolute;top: 0;left: 0;transform: translateX(-48px);animation: scroll 10s linear infinite;}'
+((m = ${1-0} * 1000 / $i))
 
-for ((j=1; j<i; j++))
+echo -n '<style>@keyframes scroll{0{transform:translateX(0)}to{transform:translateX(850px)}}image{position:absolute;top:0;left:0;transform:translateX(-48px);animation:scroll '
+echo -n ${1-0}
+echo -n 's linear infinite}'
+
+for ((j = 1; j < i; j++))
 do
 	echo -n "#"
 	echo -n ${cssIds:$j:1}
-	echo -n '{animation-delay: -'
-	echo -n $(($j * 10000 / $i))
+	echo -n '{animation-delay:-'
+	echo -n $(($j * $m))
 	echo -n 'ms}'
 done
 
