@@ -6,35 +6,35 @@ then
 	exit 1
 fi
 
-cssIds=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ_"
+cssIds=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ"
 i=0
 
-echo -n '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="850" viewBox="0 0 850 48" xml:space="preserve">'
+echo -n '<svg id="_" version="1.1" xmlns="http://www.w3.org/2000/svg" width="850" viewBox="0 0 850 48" xml:space="preserve">'
 
 for image in img/* 
 do
-	echo -n '<image width="48" height="48"'
+	echo -n '<g'
 	if (($i > 0)) 
 	then
 		echo -n ' id="'
 		echo -n ${cssIds:$i:1}
 		echo -n '"'
 	fi
-	echo -n ' href="https://raw.githubusercontent.com/romdotdog/readme-scroller/main/'
-	echo -n $image
-	echo -n '"/>'
+	echo -n ">"
+	cat $image | sed 's/<svg/<svg width="48" height="48"/'
+	echo -n "</g>"	
 	((i++))
 done
 
 ((m = ${1-0} * 1000 / $i))
 
-echo -n '<style>@keyframes scroll{0{transform:translateX(0)}to{transform:translateX(850px)}}image{position:absolute;top:0;left:0;transform:translateX(-48px);animation:scroll '
+echo -n '<style>@keyframes scroll{0{transform:translateX(0)}to{transform:translateX(850px)}}#_>g{position:absolute;top:0;left:0;transform:translateX(-48px);animation:scroll '
 echo -n ${1-0}
 echo -n 's linear infinite}'
 
 for ((j = 1; j < i; j++))
 do
-	echo -n "#"
+	echo -n "#_>#"
 	echo -n ${cssIds:$j:1}
 	echo -n '{animation-delay:-'
 	echo -n $(($j * $m))
