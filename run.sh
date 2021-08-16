@@ -6,9 +6,7 @@ then
 	exit 1
 fi
 
-cssIds=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ"
 i=0
-
 echo -n '<svg id="_" version="1.1" xmlns="http://www.w3.org/2000/svg" width="850" viewBox="0 0 850 48" xml:space="preserve">'
 
 for image in img/* 
@@ -16,8 +14,8 @@ do
 	echo -n '<g'
 	if (($i > 0)) 
 	then
-		echo -n ' id="'
-		echo -n ${cssIds:$i:1}
+		echo -n ' id="Z_'
+		echo -n $i
 		echo -n '"'
 	fi
 	echo -n ">"
@@ -34,8 +32,8 @@ echo -n 's linear infinite}'
 
 for ((j = 1; j < i; j++))
 do
-	echo -n "#_>#"
-	echo -n ${cssIds:$j:1}
+	echo -n "#_>#Z_"
+	echo -n $j
 	echo -n '{animation-delay:-'
 	echo -n $(($j * $m))
 	echo -n 'ms}'
