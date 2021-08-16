@@ -20,7 +20,7 @@ do
 	((i++))
 done
 
-echo '<style>@keyframes scroll {0 {transform: translateX(0)} to {transform: translateX(850px)}}image {position: absolute;top: 0;left: 0;transform: translateX(-24px);animation: scroll 10s linear infinite;}'
+echo '<style>@keyframes scroll {0 {transform: translateX(0)} to {transform: translateX(850px)}}image {position: absolute;top: 0;left: 0;transform: translateX(-48px);animation: scroll 10s linear infinite;}'
 
 for ((j=1; j<i; j++))
 do
